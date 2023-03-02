@@ -1,0 +1,32 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Category Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% categories.forEach((cat, index) => { %>
+    <tr>
+      <td><%= ++index %></td>
+      <td><%= cat.name %></td>
+      <td>
+        <a
+          href="/categories/<%= cat._id %>/edit"
+          class="btn btn-warning float-left mr-2"
+        >
+          <i class="fas fa-pencil-alt"></i>
+          Update
+        </a>
+        <form class="form-delete" method="POST" data-id="<%= cat._id %>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,36 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Owner Name</th>
+      <th>Bank Name</th>
+      <th>Account Number</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% banks.forEach((bank, index) => { %>
+    <tr>
+      <td><%= ++index %></td>
+      <td><%= bank.name %></td>
+      <td><%= bank.nameBank.name %></td>
+      <td><%= bank.accountNumber %></td>
+      <td>
+        <a
+          href="/banks/<%= bank._id %>/edit"
+          class="btn btn-warning float-left mr-2"
+        >
+          <i class="fas fa-pencil-alt"></i>
+          Update
+        </a>
+        <form class="form-delete" method="POST" data-id="<%= bank._id %>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,129 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      
+      <%- include("../../partials/message") %>
+      <div class="alert alert-dismissible alert-delete" style="display: none">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-hidden="true"
+        >
+          &times;
+        </button>
+      </div>
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Data Vouchers</h1>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Vouchers</li>
+          </ol>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title float-right">
+                <a href="/vouchers/create" class="btn btn-primary">
+                  <i class="fas fa-plus mr-2"></i>
+                  Create Voucher
+                </a>
+              </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body"><%- include('./table.ejs') %></div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- contentFor('head') %>
+<!-- DataTables -->
+<link
+  rel="stylesheet"
+  href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"
+/>
+
+<%- contentFor('script') %>
+<!-- DataTables  & Plugins -->
+<script src="/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="/adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="/adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="/adminlte/plugins/jszip/jszip.min.js"></script>
+<script src="/adminlte/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="/adminlte/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script>
+  $(function () {
+    $("#example2").DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+  $(document).ready(function () {
+    $(".form-delete").submit(function (e) {
+      e.preventDefault();
+      const id = e.target.getAttribute("data-id");
+      $.ajax({
+        url: `/vouchers/${id}`,
+        method: "DELETE",
+        success: function (res) {
+          $(".alert").addClass("alert-success");
+          $(".alert").show(100, () => {
+            setTimeout(() => {
+              $(".alert").hide(100);
+            }, 2000);
+          });
+          $(".alert-delete").html(res.data.message);
+          $("#example2").load(location.href + " #example2");
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });
+    });
+  });
+</script>

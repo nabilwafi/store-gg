@@ -1,0 +1,69 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Game Name</th>
+      <th>Item</th>
+      <th>Total Price</th>
+      <th>Status</th>
+      <th>Player Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% transactions.forEach((transaction, index) => { %>
+    <tr>
+      <td><%= ++index %></td>
+      <td>
+        <div>
+          <img
+            width="5%"
+            height="5%"
+            src="/uploads/<%= transaction.historyVoucherTopup.thumbnail %>"
+            alt=""
+          />
+        </div>
+        <%= transaction.historyVoucherTopup.gameName %>
+      </td>
+      <td>
+        <%= transaction.historyVoucherTopup.coinQuantity %> <%=
+        transaction.historyVoucherTopup.coinName %>
+      </td>
+      <td><%= transaction.value %></td>
+      <td>
+        <% if (transaction.status === "Pending") { %>
+        <span class="badge badge-warning"> <%= transaction.status %> </span>
+        <% }else if(transaction.status === "Failed") { %>
+        <span class="badge badge-danger"> <%= transaction.status %> </span>
+        <% }else { %>
+        <span class="badge badge-success"> <%= transaction.status %> </span>
+        <% } %>
+      </td>
+      <td><%= transaction?.player?.name ?? "-" %></td>
+      <td>
+        <% if (transaction.status === "Pending") { %>
+        <form
+          action="/transactions/status/<%= transaction._id %>?status=Failed&_method=PUT"
+          method="POST"
+          class="float-left mr-2"
+        >
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-times circle mr-1"></i>
+            Tolak
+          </button>
+        </form>
+        <form
+          action="/transactions/status/<%= transaction._id %>?status=Success&_method=PUT"
+          method="POST"
+        >
+          <button type="submit" class="btn btn-info">
+            <i class="fa fa-check mr-1"></i>
+            Terima
+          </button>
+        </form>
+        <% } %>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

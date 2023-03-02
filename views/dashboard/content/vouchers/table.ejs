@@ -1,0 +1,61 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Game Name</th>
+      <th>Category</th>
+      <th>Nominal</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% vouchers.forEach((voucher, index) => { %>
+    <tr>
+      <td><%= ++index %></td>
+      <td><%= voucher.name %></td>
+      <td><%= voucher.categories.name %></td>
+      <td>
+        <% voucher.nominals.forEach(nom => { %>
+        <span class="badge bg-warning"
+          ><%= nom.coinName %> || <%= nom.coinQty %></span
+        >
+        <% }) %>
+      </td>
+      <td>
+        <% if (voucher.status == "Y") { %>
+        <span class="badge bg-success">active</span>
+        <% }else { %>
+        <span class="badge bg-danger">deactive</span>
+        <% } %>
+      </td>
+      <td>
+        <form
+          class="form-status float-left mr-2"
+          method="POST"
+          action="/vouchers/<%= voucher._id %>/update-status?_method=PUT"
+        >
+          <button type="submit" class="btn btn-info">
+            <i class="fas fa-folder"></i>
+            <% if (voucher.status === "Y") { %> Deactive <% }else { %> Active <%
+            } %>
+          </button>
+        </form>
+        <a
+          href="/vouchers/<%= voucher._id %>/edit"
+          class="btn btn-warning float-left mr-2"
+        >
+          <i class="fas fa-pencil-alt"></i>
+          Update
+        </a>
+        <form class="form-delete" method="POST" data-id="<%= voucher._id %>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

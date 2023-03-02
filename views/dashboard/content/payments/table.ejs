@@ -1,0 +1,60 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Type</th>
+      <th>Bank Name</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% payments.forEach((payment, index) => { %>
+    <tr>
+      <td><%= ++index %></td>
+      <td><%= payment.type %></td>
+      <td>
+        <% payment.banks.forEach(bank => { %>
+        <span class="badge bg-warning"
+          ><%= bank.name %>-<%= bank.nameBank.name %>-<%= bank.accountNumber
+          %></span
+        >
+        <% }) %>
+      </td>
+      <td>
+        <% if (payment.status === "Y") { %>
+        <span class="badge bg-success">active</span>
+        <% }else { %>
+        <span class="badge bg-danger">deactive</span>
+        <% } %>
+      </td>
+      <td>
+        <form
+          action="/payments/<%= payment._id %>/update-status?_method=PUT"
+          class="float-left mr-2"
+          method="POST"
+        >
+          <button type="submit" class="btn btn-info">
+            <i class="fas fa-folder"></i>
+            <% if (payment.status === "Y") { %> Deactive <% }else { %> Active <%
+            } %>
+          </button>
+        </form>
+        <a
+          href="/payments/<%= payment._id %>/edit"
+          class="btn btn-warning float-left mr-2"
+        >
+          <i class="fas fa-pencil-alt"></i>
+          Update
+        </a>
+        <form class="form-delete" method="POST" data-id="<%= payment._id %>">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

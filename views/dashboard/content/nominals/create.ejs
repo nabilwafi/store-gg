@@ -1,0 +1,112 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <%- include('../../partials/error') %>
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0">Create Nominal</h1>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item">
+              <a href="/nominals">nominals</a>
+            </li>
+            <li class="breadcrumb-item active">Create</li>
+          </ol>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">Create Nominal</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form action="/nominals" method="POST">
+            <div class="card-body">
+              <div class="form-group">
+                <label>Choose Coin</label>
+                <select
+                  name="coinName"
+                  class="form-control select2"
+                  style="width: 100%"
+                  data-placeholder="Pilih Coin"
+                >
+                  <option value="Gold">Gold</option>
+                  <option value="Diamond">Diamond</option>
+                  <option value="Jewel">Jewel</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputRounded0">Total Coin</label>
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  id="exampleInputRounded0"
+                  placeholder="Total Coin"
+                  name="coinQty"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputRounded0">Price</label>
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  id="exampleInputRounded0"
+                  placeholder="Price"
+                  name="price"
+                />
+              </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+
+<%- contentFor('head') %>
+<!-- Select2 -->
+<link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css" />
+<link
+  rel="stylesheet"
+  href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"
+/>
+<!-- Bootstrap4 Duallistbox -->
+<link
+  rel="stylesheet"
+  href="/adminlte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css"
+/>
+<link rel="stylesheet" href="/stylesheets/style.css" />
+
+<%- contentFor('script') %>
+<script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+  });
+</script>

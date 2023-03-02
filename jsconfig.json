@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "baseUrl": ".",
+    "paths": {
+      "@/controller/*": ["./app/controllers/*"],
+      "@/db/*": ["./db/*"],
+      "@/model/*": ["./app/models/*"],
+      "@/helper/*": ["./app/helpers/*"],
+      "@/utils/*": ["./app/utils/*"],
+      "@/config/*": ["./config/*"],
+      "@/routes/*": ["./routes/*"]
+    }
+  },
+  "exclude": ["node_modules", "public"]
+}
